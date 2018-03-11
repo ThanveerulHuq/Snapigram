@@ -1,0 +1,13 @@
+- args:
+    permission:
+      columns:
+      - name
+      - user_id
+      - email_id
+      - mobile_no
+      - age
+      - user_name
+      filter: {}
+    role: anonymous
+    table: users
+  type: create_select_permission

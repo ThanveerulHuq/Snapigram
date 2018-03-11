@@ -1,0 +1,10 @@
+- args:
+    permission:
+      columns:
+      - tag_id
+      - created_by
+      - tag_name
+      filter: {}
+    role: user
+    table: user_tags
+  type: create_select_permission

@@ -1,0 +1,6 @@
+- args:
+    permission:
+      check: {}
+    role: anonymous
+    table: post_tags
+  type: create_insert_permission

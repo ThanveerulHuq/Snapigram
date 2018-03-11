@@ -1,0 +1,3 @@
+- args:
+    sql: ALTER TABLE "user_tags" ADD COLUMN "created_by" bigint NUll
+  type: run_sql

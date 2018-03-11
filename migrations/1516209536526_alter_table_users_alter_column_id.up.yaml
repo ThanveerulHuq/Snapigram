@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "users" ALTER COLUMN "id" TYPE bigint;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "users" ALTER COLUMN "id" DROP DEFAULT;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "users" ALTER COLUMN "id" DROP NOT NULL;
+  type: run_sql

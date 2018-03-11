@@ -1,0 +1,6 @@
+- args:
+    permission:
+      check: {}
+    role: anonymous
+    table: article
+  type: create_insert_permission

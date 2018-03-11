@@ -1,0 +1,4 @@
+- args:
+    sql: ALTER TABLE "post_tags" ADD FOREIGN KEY ("post_id") REFERENCES "user_posts"
+      ("post_id")
+  type: run_sql

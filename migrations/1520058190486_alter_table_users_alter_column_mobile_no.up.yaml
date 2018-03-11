@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "users" ALTER COLUMN "mobile_no" TYPE bigint;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "users" ALTER COLUMN "mobile_no" DROP DEFAULT;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "users" ALTER COLUMN "mobile_no" DROP NOT NULL;
+  type: run_sql

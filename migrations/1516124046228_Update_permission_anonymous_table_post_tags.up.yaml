@@ -1,0 +1,14 @@
+- args:
+    role: anonymous
+    table: post_tags
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - tag_id
+      - post_id
+      - post_tag_id
+      filter: {}
+    role: anonymous
+    table: post_tags
+  type: create_select_permission

@@ -1,0 +1,11 @@
+- args:
+    permission:
+      columns:
+      - description
+      - created_by
+      - image_url
+      - post_id
+      filter: {}
+    role: anonymous
+    table: user_post
+  type: create_select_permission

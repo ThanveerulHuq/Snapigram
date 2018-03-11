@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "post_tags"("post_tag_id" bigserial NOT NULL, "post_id" bigint
+      NOT NULL, "tag_id" bigint NOT NULL, PRIMARY KEY ("post_tag_id") )
+  type: run_sql
+- args:
+    name: post_tags
+  type: add_existing_table_or_view

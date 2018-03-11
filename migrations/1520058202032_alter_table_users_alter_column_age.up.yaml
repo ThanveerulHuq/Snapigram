@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "users" ALTER COLUMN "age" TYPE integer;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "users" ALTER COLUMN "age" DROP DEFAULT;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "users" ALTER COLUMN "age" DROP NOT NULL;
+  type: run_sql

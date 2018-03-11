@@ -1,0 +1,7 @@
+- args:
+    permission:
+      columns: []
+      filter: {}
+    role: user
+    table: post_tags
+  type: create_select_permission

@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "user_posts"("post_id" bigint NOT NULL, "image_url" text NOT
+      NULL, "created_by" text NOT NULL, "description" text NOT NULL, PRIMARY KEY ("post_id")
+      )
+  type: run_sql
+- args:
+    name: user_posts
+  type: add_existing_table_or_view

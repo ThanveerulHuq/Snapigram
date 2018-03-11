@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "check_table"("id" bigserial NOT NULL, "desc" text NOT NULL,
+      PRIMARY KEY ("id") )
+  type: run_sql
+- args:
+    name: check_table
+  type: add_existing_table_or_view

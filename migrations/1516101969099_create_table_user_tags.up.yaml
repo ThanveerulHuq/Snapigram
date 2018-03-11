@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "user_tags"("tag_id" integer NOT NULL, "tag_description" text
+      , PRIMARY KEY ("tag_id") )
+  type: run_sql
+- args:
+    name: user_tags
+  type: add_existing_table_or_view
