@@ -52,7 +52,7 @@ export default class extends Component {
       const base64 = "data:image/png;base64,"+this.state.imageData.base64;
 
       
-      // console.log("this is the culprit "+base64 );
+      console.log("this is the culprit "+base64 );
 
       fetch('https://app.derogation85.hasura-app.io/uploadImage', {
             method: 'post',
@@ -83,12 +83,13 @@ export default class extends Component {
               }
               else
               {
-                Alert.alert("Error ","Not Uploaded");
+                Alert.alert("Error ","Internal Server Error");
               }
          
            }).catch((error) => {
            console.error(error);
           //  this.setState({error, loading: false, refreshing:false});
+          Alert.alert("Error ","Internal Server Error");
           });  
     }
 
@@ -130,7 +131,7 @@ export default class extends Component {
               console.log(res);
               
             
-              if( res._bodyText === "success")
+              if( res._bodyText == "success")
               {
                 this.setState({ 
                   isloading : false,
@@ -189,8 +190,8 @@ export default class extends Component {
     const image64 = `data:image/jpg;base64,`+ imageData.base64;
     
     // console.log(this.state.imageData);
-    console.log("file id" + this.state.file_id);
-    console.log("Auth" + this.state.auth_tokken);
+    console.log("file id : " + this.state.file_id);
+    console.log("Auth : " + this.state.auth_tokken);
 
        
     return (
@@ -306,4 +307,4 @@ const styles = StyleSheet.create
   }
     
 
-    })
+})
