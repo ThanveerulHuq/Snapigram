@@ -7,11 +7,11 @@ import base64
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 
 
-signup_url = "https://auth.clipping57.hasura-app.io/v1/signup"
-data_url = "https://data.clipping57.hasura-app.io/v1/query"
-login_url ="https://auth.clipping57.hasura-app.io/v1/login"
-filestore_url= "https://filestore.clipping57.hasura-app.io/v1/file"
-userinfo_url= "https://auth.clipping57.hasura-app.io/v1/user/info"
+signup_url = "https://auth.derogation85.hasura-app.io/v1/signup"
+data_url = "https://data.derogation85.hasura-app.io/v1/query"
+login_url ="https://auth.derogation85.hasura-app.io/v1/login"
+filestore_url= "https://filestore.derogation85.hasura-app.io/v1/file"
+userinfo_url= "https://auth.derogation85.hasura-app.io/v1/user/info"
 auth_headers = {"Content-Type": "application/json"}
 data_headers = {
     "Content-Type": "application/json",
