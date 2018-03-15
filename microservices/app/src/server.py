@@ -150,6 +150,39 @@ def get_post():
     request_json = request.get_json(silent=True)
     post_id = request_json["post_id"]
     return get_posts(post_id)
+	
+@app.route('/postwithimage', methods=['POST'])
+def post_image():
+    request_json = request.get_json(silent=True)
+    auth_token = request.headers.get('Auth')
+    user_name = auth_user(auth_token)
+    user_id = 0
+    if (user_name != None):
+        user_id = get_userid(user_name)
+    file_key = uploadimage(request_json['file'])
+    descr = request_json['descr']
+    tags_string = request_json['tags']
+    query = {
+        "type": "insert",
+        "args": {
+            "table": "user_post",
+            "objects": [
+                {"image_url": file_key, "created_by": user_id, "description": descr}
+            ],
+            "returning": ["post_id"]
+        }
+    }
+    resp = requests.request("POST", data_url, data=json.dumps(query), headers=data_headers)
+    response = resp.content
+    jsonResponse = json.loads(response.decode('utf-8'))
+    if 'returning' not in jsonResponse:
+        return jsonResponse
+    post_id = jsonResponse['returning'][0]['post_id']
+    tag_added = add_tags(tags_string, post_id)
+    if (tag_added):
+        return "success"
+    else:
+        return "upload failed"
 
 
 def add_tags(tag_string,post_id):
@@ -289,4 +322,15 @@ def get_username(user_id):
     response1 = resp1.content
     jsonResponse1= json.loads(response1.decode('utf-8'))
     return jsonResponse1[0]['user_name']
+	
+def uploadimage(file):
+    starter = file.find(',')
+    image_data = file[starter + 1:]
+    image_data = bytes(image_data, encoding="ascii")
+    with open("imageToSave.png", "wb") as fh:
+        fh.write(base64.decodebytes(image_data))
+        resp = requests.post(filestore_url, data=base64.decodebytes(image_data), headers=data_headers)
+        response = resp.content
+        json_response = json.loads(response.decode('utf-8'))
+        return json_response['file_id']
 
