@@ -1,7 +1,0 @@
-- alias: hasura
-  config:
-    configmap: controller-conf
-    namespace: derogation85-hasura
-  data: null
-  kubeContext: derogation85
-  name: derogation85
