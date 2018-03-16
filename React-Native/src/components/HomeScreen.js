@@ -18,7 +18,7 @@ export default class HomeGet extends Component {
     }
 
 
-    componentDidMount() {
+    componentWillMount() {
 
          this.getPosts();
 
@@ -126,10 +126,15 @@ export default class HomeGet extends Component {
       }
 
       _onRefresh() {
+        data=this.state.data;
+        //max postid in the which is stored in the data
+        let First_post_id=Math.max.apply(Math,data.map(function(ques){return ques.post_id;}));
+        // console.log(First_post_id);
         this.setState({
           refreshing:true,
           postId:10000000,
        },
+       
          ()=> { fetch('https://app.derogation85.hasura-app.io/getPosts', {
           method: 'post',
           headers: {
@@ -142,18 +147,24 @@ export default class HomeGet extends Component {
         })
         .then((response) => response.json())
         .then((res) => {
-            console.log(res.posts);
-            if(typeof(res.posts.post_id) != "undefined")
+           let data2=res.posts;
+            // console.log(this.state.postId);
+            //latest_pos_id is the data came from sever
+           let latest_post_id=Math.max.apply(Math,data.map(function(ques){return ques.post_id;}));
+          //  console.log(latest_post_id);
+
+            if(First_post_id != latest_post_id)
             {
-            this.setState({ 
+              console.log("Fecthing new data");
+              this.setState({ 
                 data : res.posts,
                 isloading : false,
                 refreshing:false,
               });
+              
             }
             else
             {
-             
               this.setState({ 
                 refreshing:false,
               });

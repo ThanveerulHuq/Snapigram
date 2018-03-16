@@ -23,16 +23,17 @@ export default class extends Component {
   
 
   async deleteToken() {
-    console.log("not working")
+    console.log("Deleting tokken");
     try {
       
       await AsyncStorage.removeItem(ACCESS_TOKEN);
       Alert.alert("Success ","You have successfully logged out! Thank you for using Snapigram! ");
       this.props.navigation.navigate('Login');
+      console.log("Deleted");
 
     }
     catch(error) {
-      console.log("Somthing went wrong");
+      console.log("Somthing went wrong while deleting the tokken");
     }
   }
 

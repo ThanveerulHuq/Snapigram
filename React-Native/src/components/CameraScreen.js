@@ -51,7 +51,7 @@ takePicture = async function() {
       mediaTypes:"Images",
       allowsEditing: true,
       aspect: [4, 4],
-      quality:0.5,
+      quality:0.8,
       base64 :true,
     });
     

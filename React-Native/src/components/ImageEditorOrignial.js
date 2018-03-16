@@ -15,11 +15,12 @@ export default class extends Component {
           caption : '',
           auth_tokken :'',
           tags : '',  
-          isloading:false,         
+          isloading:true,         
         };
       }
 
   componentWillMount(){
+   this.UploadImagetoServer();
    this.getToken();
     } 
 
@@ -44,11 +45,10 @@ export default class extends Component {
     
 
    UploadImagetoServer = () => {
-    this.setState({ isloading : true,});
       // let { imageData } = this.state;
 
       const base64 = "data:image/png;base64,"+this.state.imageData.base64;
-      console.log("i m outside of uploading")
+      console.log("i m outside")
       
       // console.log("this is the culprit "+ base64 );
 
@@ -68,22 +68,19 @@ export default class extends Component {
            
           })
           
-          .then((response) => response.json())
+          // .then((response) => response.json())
           
           .then((res) => {
                console.log(res);
            
               if(typeof(res.filekey)  != "undefined")
               {
-              this.setState({
-                file_id : res.filekey,
-                //  isloading : false
-                });
+              this.setState({file_id : res.filekey});
               // Alert.alert("Success ",res.filekey + "Image Uploaded");
-          
-                  console.log("image uploded with the key" + res.file_key);
+              this.setState({ 
+                isloading : false,
+              });
 
-                  this.PostImagetoServer();
               }
               else
               {
@@ -93,7 +90,7 @@ export default class extends Component {
            }).catch((error) => {
           
           //  this.setState({error, loading: false, refreshing:false});
-          Alert.alert("Error ","Internal Server Error while Uploading");
+          Alert.alert("Error ","Internal Server Error");
           console.error(error);
           });  
     }
@@ -103,9 +100,20 @@ export default class extends Component {
     
    PostImagetoServer = () => {
 
+    this.setState({ isloading : true,});
+
+    if (this.state.file_id === "")
+    {
+      Alert.alert("PLZ WAIT", "BIG THINGS TAKES TIME ");
+
+    }
+    
+     else 
+
+     {
+             
       this.Makingtags();
-           
-     
+
       fetch('https://app.derogation85.hasura-app.io/uploadPost', {
             method: 'POST', 
             headers: {
@@ -147,7 +155,7 @@ export default class extends Component {
           });  
 
 
-     
+     }
      
 
   }
@@ -190,23 +198,25 @@ export default class extends Component {
     return (
 
       <Container style={styles.Container}>
+          <View style={styles.form}> 
 
-       
-        <View style={styles.form}> 
-           
-                
-              {/* <Text style={{fontFamily:'Billabong',fontWeight: 'bold',fontSize:20}}>ImageURI = {imageData.uri}</Text> */}
-              <View style={styles.imagebox} >
-                
-                <Image style={styles.image}
-                    
-                      source={{uri:image64}}
+              
+            {/* <Text style={{fontFamily:'Billabong',fontWeight: 'bold',fontSize:20}}>ImageURI = {imageData.uri}</Text> */}
+            <View style={styles.imagebox} >
+               
+              <Image style={styles.image}
+                  
+                    source={{uri:image64}}
 
-                  />
+                />
 
-              </View>
-
-              <View style={styles.inputbox}>
+                {this.state.isloading &&
+                  <View style={styles.loading}>
+                      <ActivityIndicator animating size="large" color="white"/>
+                  </View>
+                  }
+            </View>
+                <View style={styles.inputbox}>
                     
                     <Item>
   
@@ -218,45 +228,30 @@ export default class extends Component {
                       autoCapitalize = "none"
                        />
 
-                    </Item>        
-              </View>
+                    </Item>
+
+
+                    
+                </View>
+
       
-        </View>
-
-         {this.state.isloading &&
-                    <View style={styles.loading}>
-                        <ActivityIndicator animating size="large" color="black"/>
-                        <Text  style={{marginTop:0,color:"#ffffff"}} children="Posting..." />
-                    </View>
-                }
+          </View>
 
 
-
-
-        <View style={{flex: 1,flexDirection: 'row', paddingTop:5, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{flex: 1,flexDirection: 'row', paddingTop:5, justifyContent: 'center', alignItems: 'center'}}>
             
-          <Button rounded iconRight style={styles.button}  onPress={() =>this.UploadImagetoServer()}>
+          <Button rounded iconRight style={styles.button}  onPress={() =>this.PostImagetoServer()}>
 
             <Text >Share</Text>
             <Icon name='md-share-alt' />
                 
               
-          </Button>           
-
-        </View>
-
-        {this.state.isloading &&
-                    <View style={styles.loading}>
-                        <ActivityIndicator animating size="large" color="black"/>
-                        <Text  style={{marginTop:0,color:"#ffffff"}} children="Posting..." />
-                    </View>
-                }
-
-      
-     
+          </Button>
+            
+          </View>
           {/* <Text> Auth_Tokken : {this.state.auth_tokken}</Text> */}
           {/* <Text>Fil_id :  {this.state.file_id}</Text> */}
-
+        
       </Container>
     );
   }
@@ -308,7 +303,6 @@ const styles = StyleSheet.create
       top: 0,
       bottom: 0,
       opacity: 0.5,
-      backgroundColor: 'black',
       justifyContent: 'center',
       alignItems: 'center'
   }
