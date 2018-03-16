@@ -4,7 +4,7 @@ import requests
 import json
 import base64
 
-app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 10000 * 1024 * 1024
 
 
 signup_url = "https://auth.derogation85.hasura-app.io/v1/signup"
@@ -17,7 +17,6 @@ data_headers = {
     "Content-Type": "application/json",
     "Authorization": "Bearer b317a855176fed910c37855eccef518d7a19e7f6342ca088"
 }
-
 @app.route('/')
 def index():
     return "<h1>Hello World - Thanveer</h1>"
@@ -151,7 +150,6 @@ def get_post():
     request_json = request.get_json(silent=True)
     post_id = request_json["post_id"]
     return get_posts(post_id)
-
 
 def add_tags(tag_string,post_id):
     post_tag_ids=[]
@@ -290,4 +288,6 @@ def get_username(user_id):
     response1 = resp1.content
     jsonResponse1= json.loads(response1.decode('utf-8'))
     return jsonResponse1[0]['user_name']
+	
+
 
