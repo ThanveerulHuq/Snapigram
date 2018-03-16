@@ -4,7 +4,7 @@ import requests
 import json
 import base64
 
-app.config['MAX_CONTENT_LENGTH'] = 10000 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 
 
 signup_url = "https://auth.derogation85.hasura-app.io/v1/signup"
