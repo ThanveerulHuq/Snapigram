@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {  Image ,StyleSheet,Alert,AsyncStorage,ActivityIndicator} from 'react-native';
+import {  Image ,StyleSheet,Alert,AsyncStorage,ActivityIndicator,Keyboard} from 'react-native';
 import { Container,View, Header,Footer, Input,Title, Content, Button, Icon, Text, Right, Body,Form,Item } from "native-base";
 const ACCESS_TOKEN = 'access_token';
 
@@ -48,7 +48,7 @@ export default class extends Component {
       // let { imageData } = this.state;
 
       const base64 = "data:image/png;base64,"+this.state.imageData.base64;
-      console.log("i m outside of uploading")
+      console.log(" uploading the image................")
       
       // console.log("this is the culprit "+ base64 );
 
@@ -58,7 +58,7 @@ export default class extends Component {
 
               'Authorization' : "Bearer b317a855176fed910c37855eccef518d7a19e7f6342ca088",
               
-               "Content-Type": "application/json"
+                "Content-Type": "application/json"
             },
        
             body: JSON.stringify({
@@ -71,17 +71,17 @@ export default class extends Component {
           .then((response) => response.json())
           
           .then((res) => {
-               console.log(res);
+          console.log(res);
            
               if(typeof(res.filekey)  != "undefined")
               {
               this.setState({
                 file_id : res.filekey,
-                //  isloading : false
+                
                 });
               // Alert.alert("Success ",res.filekey + "Image Uploaded");
           
-                  console.log("image uploded with the key" + res.file_key);
+                  console.log("image uploded with the key : " + res.filekey);
 
                   this.PostImagetoServer();
               }
@@ -103,7 +103,10 @@ export default class extends Component {
     
    PostImagetoServer = () => {
 
+
       this.Makingtags();
+
+      console.log(" Posting the image................")
            
      
       fetch('https://app.derogation85.hasura-app.io/uploadPost', {
@@ -130,7 +133,6 @@ export default class extends Component {
                   isloading : false,
                   
                 });
-  
               Alert.alert(res._bodyText ,"Your Post has been Shared Successfully");
               this.props.navigation.navigate('Main');
 
@@ -170,7 +172,7 @@ export default class extends Component {
           tags = tags.substr(0,tags.length -1 );
           }
           
-          console.log("thus is the total tags " + tags);
+          console.log("this are the total tags : "  + tags);
           this.setState({tags : tags});
         }
 
@@ -185,9 +187,10 @@ export default class extends Component {
     // console.log(this.state.imageData);
     console.log("file id : " + this.state.file_id);
     console.log("Auth : " + this.state.auth_tokken);
-
-       
+    var today = new Date();
+    console.log(today); 
     return (
+      
 
       <Container style={styles.Container}>
 
@@ -216,43 +219,42 @@ export default class extends Component {
                       underlineColorAndroid = 'transparent'
                       autoCorrect = {false}
                       autoCapitalize = "none"
-                       />
+                     
+                      />
 
                     </Item>        
               </View>
+              
       
         </View>
 
-         {this.state.isloading &&
-                    <View style={styles.loading}>
-                        <ActivityIndicator animating size="large" color="black"/>
-                        <Text  style={{marginTop:0,color:"#ffffff"}} children="Posting..." />
-                    </View>
-                }
+               
+              
 
 
-
-
-        <View style={{flex: 1,flexDirection: 'row', paddingTop:5, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{flex :1 ,flexDirection:'row',justifyContent:"center",alignItems:"center" ,marginTop:75}}>
             
           <Button rounded iconRight style={styles.button}  onPress={() =>this.UploadImagetoServer()}>
 
             <Text >Share</Text>
             <Icon name='md-share-alt' />
-                
-              
+            
           </Button>           
 
         </View>
 
-        {this.state.isloading &&
-                    <View style={styles.loading}>
-                        <ActivityIndicator animating size="large" color="black"/>
-                        <Text  style={{marginTop:0,color:"#ffffff"}} children="Posting..." />
-                    </View>
-                }
 
-      
+            {this.state.isloading &&
+              <View style={styles.loading}>
+                  <ActivityIndicator animating size="large" color="black"/>
+                  <Text  style={{marginTop:0,fontWeight: 'bold',color:"white"}} children="Posting...." />
+              </View>
+            }
+                      
+
+
+
+       
      
           {/* <Text> Auth_Tokken : {this.state.auth_tokken}</Text> */}
           {/* <Text>Fil_id :  {this.state.file_id}</Text> */}
@@ -302,6 +304,7 @@ const styles = StyleSheet.create
       
     },
     loading: {
+      flex:1,
       position: 'absolute',
       left: 0,
       right: 0,

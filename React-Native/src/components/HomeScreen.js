@@ -61,7 +61,123 @@ export default class HomeGet extends Component {
     }
     
 
+      getTimeDiff =(created_at) =>{
+        console.log("xxxxxxxxxxxxxxxxxxxxx Time xxxxxxxxxxxxxxxxxxxxxx");
+        if (created_at == null )
+        {
+        return "SOME TIME AGO";
+        }
+        else {
+        created_date = new Date(created_at);
+
+        console.log("c 1 : " + created_date);
+
+        // created_date2 = new Date(created_date.getTime() + 330*60000);
+
+        // console.log("C 2 : " + created_date2);
+        
+        var today = new Date();
+
+        console.log("C 3 : " + today);
+
+        minutes = this.diff_minutes(today,created_date);
+        return this.timeInterval (minutes);
+        
+        }}
+         diff_minutes =( dt2, dt1 ) =>
+        {
+          
+         var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+         diff /= 60;
+          let a = Math.abs(Math.round(diff));
+          console.log("C 5 : "+ a);
+          return a;         
+        }
+        
+
+
+       timeInterval (minutes){
+
+          if (minutes==0)
+            {
+              return "FEW SECONDS AGO"
+            }
+          
+          if(minutes<60)
+            {
+               
+              if(minutes==1)      
+                   return minutes + " MINUTE AGO";
+              else
+                return minutes + " MINUTES AGO";
+            }
+          
+          if(minutes >=60)
+               {
+                 interval=Math.floor(minutes/60)
+                 if (interval < 24)
+                   {
+                     if (interval == 1)
+                      return interval + " HOUR AGO";
+                     else
+                       return interval + " HOURS AGO";
+                       
+                   }
+                 
+                if (interval >= 24)
+                  {
+                    
+                  intervalindays = Math.floor(interval/24);
+                    
+                     if(intervalindays <= 1)
+                     {
+                        return intervalindays + " DAY AGO"
+                       
+                     }
+                  
+                    
+                  if( intervalindays < 31 )
+                    return intervalindays + " DAYS AGO"
+                  
+                   if( intervalindays >=31)
+                     {
+                     
+                        intervalinmonths = Math.floor(intervalindays/30)
+                        
+                        
+                        if (intervalinmonths<=12){
+                          
+                          if (intervalinmonths<=1)
+                       
+                           return intervalinmonths + " MONTH AGO"
+                           else
+                             return intervalinmonths + " MONTHS AGO"
+                             
+                        }
+          
+                    else
+                    {
+                      intervalinyears = Math.floor(intervalinmonths/12);
+                      
+                      if(intervalinyears<=1)
+                        return intervalinyears + " YEAR AGO"
+                      else
+                        return intervalinyears + " YEARS AGO"
+                        
+          
+                    }
+                       
+                  }
+                       
+                  }                 
+                }
+          }
+        
+  
+    
+
       renderItem = ({item}) => {
+        console.log("created time : " +item.created_at);
 
         return (
           <View>
@@ -76,8 +192,8 @@ export default class HomeGet extends Component {
                 />
 
 
-                <Text style={{ fontWeight: 'bold',marginTop:15,padding:5}}>{
-                  item.created_by}</Text>
+                <Text style={{ fontWeight: 'bold',marginTop:15,padding:5}}>
+                {item.created_by}</Text>
                     <Right>
                     <Icon name="md-more"  style={{color: '#a9a9a9',padding:10,fontSize: 30}}/>
                     </Right>
@@ -96,10 +212,13 @@ export default class HomeGet extends Component {
                
               </View>
 
+          
               
             <Text note numberOfLines={2} style={{paddingLeft:10}}>
+
             <Text style={{ fontWeight: 'bold'}}>
                    {
+                    
                   item.created_by + " "}
                   </Text>
             <ParsedText
@@ -117,10 +236,14 @@ export default class HomeGet extends Component {
             </Text>
 
               <View style={{ marginBottom: 20, paddingLeft: 10 }}>
-                <Text style={{ fontSize: 10, color: 'gray' }}>{'FEW MINUTES AGO'}</Text>
+                <Text style={{ fontSize: 10, color: 'gray' }}>{this.getTimeDiff(item.created_at)}{
+                
+                }</Text>
+                
               </View>
 
           </View>
+          
   
         ) 
       }
@@ -222,6 +345,9 @@ export default class HomeGet extends Component {
        
 
       };
+
+
+
 
   render() {
 
