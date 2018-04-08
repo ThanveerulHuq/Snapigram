@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppRegistry, StyleSheet, View ,StatusBar ,FlatList, Platform,Alert} from 'react-native';
-import {  Header, Left, Drawer , Body,Right , Button, Icon, Title,Thumbnail,Tabs,TabHeading,Fab,Footer,FooterTab,Container, Tab,Text,ScrollableTab, TouchableOpacity,Content} from 'native-base';
+import {  Header, Left, Body,Right , Button, Icon, Title,Tabs,Footer,FooterTab,Container, Text,Content} from 'native-base';
 
 import {PropTypes} from 'prop-types';
 import Home from './HomeScreen.js';

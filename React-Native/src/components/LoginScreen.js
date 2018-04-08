@@ -132,7 +132,7 @@ export default class LoginScrreen extends Component {
         .then((response) => response.json())
         .then((res) => {
 
-            console.log(res)
+            // console.log(res)
 
             
         if(typeof(res.status) != "undefined")
@@ -140,7 +140,7 @@ export default class LoginScrreen extends Component {
          
             Alert.alert("Error",  res.status);
          
-       }
+        }
        else if(typeof(res.message) != "undefined")
         {
      
