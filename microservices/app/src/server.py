@@ -15,7 +15,7 @@ userinfo_url= "https://auth.derogation85.hasura-app.io/v1/user/info"
 auth_headers = {"Content-Type": "application/json"}
 data_headers = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer 757f291665c196302c351649a445e6e5f6a6e99e6aa4646b"
+    "Authorization": "Bearer b5d28b2f2fe661d177b5ee684c682dcf49324925b1df9aa5"
 }
 @app.route('/')
 def index():
